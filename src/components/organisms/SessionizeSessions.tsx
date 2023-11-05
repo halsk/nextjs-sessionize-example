@@ -1,6 +1,6 @@
 "use client";
 import useSessionizeGrids from "@/hooks/useSessionizeData";
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
@@ -31,34 +31,46 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
       {isLoading && <p>Loading...</p>}
       {!isLoading && (
         <>
-          <div className="flex justify-center">
-            {grids.map((grid, index) => (
-              <div key={`date-${index}`}>
-                {index !== groupId ? (
-                  <button
-                    onClick={changeDate(index)}
-                    className="text-white bg-primary hover:bg-secondary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                  >
-                    {format(grid.date, "M月d日")}
-                  </button>
-                ) : (
-                  <div className="text-black focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
-                    {format(grid.date, "M月d日")}
-                  </div>
-                )}
-              </div>
-            ))}
+          <div className="text-md font-medium text-center text-primary border-b border-gray-200">
+            <ul className="flex flex-wrap -mb-px">
+              {grids.map((grid, index) => (
+                <li key={`date-${index}`}>
+                  {index !== groupId ? (
+                    <li className="mr-2">
+                      <a
+                        href={`#${index}`}
+                        onClick={changeDate(index)}
+                        className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-secondary hover:border-gray-300 dark:hover:text-gray-300"
+                      >
+                        {format(grid.date, "M月d日")}
+                      </a>
+                    </li>
+                  ) : (
+                    <li className="mr-2 inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
+                      {format(grid.date, "M月d日")}
+                    </li>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className={`grid grid-cols-${grids[groupId].rooms.length + 1}`}>
-            <div>開始時刻</div>
+            <div className="bg-highlight px-5 py-2.5 flex mb-2 mr-2 justify-center items-center font-medium">
+              開始時刻
+            </div>
             {grids[groupId].rooms.map((room, index) => (
-              <div key={`room-${index}`}>{room.name}</div>
+              <div
+                key={`room-${index}`}
+                className="bg-secondary px-5 py-2.5 mr-2 mb-2 text-white"
+              >
+                {room.name}
+              </div>
             ))}
             {grids[groupId].timeSlots.map((timeSlot, index) => (
-              <>
+              <Fragment key={`time-${index}`}>
                 <div key={`timeSlot-${index}`}>{timeSlot.slotStart}</div>
                 {grids[groupId].rooms.map((_, index) => (
-                  <>
+                  <Fragment key={`room-${index}`}>
                     {timeSlot.rooms[index] ? (
                       <>
                         {timeSlot.rooms[index].session?.isPlenumSession ? (
@@ -81,9 +93,9 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                         )}
                       </>
                     )}
-                  </>
+                  </Fragment>
                 ))}
-              </>
+              </Fragment>
             ))}
           </div>
         </>

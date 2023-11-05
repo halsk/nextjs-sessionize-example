@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         primary: '#041E42',
         secondary: '#003877',
+        highlight: '#CED7E4',
       },
     },
     darkMode: false,
@@ -23,6 +24,8 @@ const config: Config = {
   safelist: [
     // Generate classes from grid-cols-1 to grid-cols-12
     ...Array.from({ length: 12 }, (_, i) => `grid-cols-${i + 1}`),
+    ...Array.from({ length: 12 }, (_, i) => `col-span-${i + 1}`),
+
   ],
   plugins: [],
 }
