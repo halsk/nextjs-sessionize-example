@@ -18,7 +18,12 @@ const config: Config = {
         secondary: '#003877',
       },
     },
+    darkMode: false,
   },
+  safelist: [
+    // Generate classes from grid-cols-1 to grid-cols-12
+    ...Array.from({ length: 12 }, (_, i) => `grid-cols-${i + 1}`),
+  ],
   plugins: [],
 }
 export default config
