@@ -73,6 +73,9 @@ const useSessionizeGrids = (id: string) => {
     const fetchSessions = async () => {
       try {
         const response = await fetch(`https://sessionize.com/api/v2/${id}/view/GridSmart`);
+        if (!response.ok) {
+          throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
+        }
         const data = await response.json();
         console.log(data);
         const parsed = data.map((grid: SessionGrid) => {
