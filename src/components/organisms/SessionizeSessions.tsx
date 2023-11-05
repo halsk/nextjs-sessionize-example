@@ -11,17 +11,17 @@ type Props = {
 
 const SessionizeSessions: React.FC<Props> = ({ id }) => {
   const router = useRouter();
-  const [hash, setHash] = React.useState("1");
+  const [groupId, setGroupId] = React.useState(1);
   // get hash from URL
   useEffect(() => {
     const _hash = window.location.hash
       ? window.location.hash.replace("#", "")
       : "1";
-    setHash(_hash);
+    setGroupId(Number(_hash));
   }, []);
   // change hash and URL
   const changeDate = (index: number) => () => {
-    setHash(index.toString());
+    setGroupId(index);
     router.push(`/#${index.toString()}`);
   };
   const { grids, isLoading, error } = useSessionizeGrids(id);
@@ -34,9 +34,9 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
           <div className="grid grid-cols-2 gap-4">
             {grids.map((grid, index) => (
               <div key={index}>
-                {index + 1 !== Number(hash) ? (
+                {index !== groupId ? (
                   <button
-                    onClick={changeDate(index + 1)}
+                    onClick={changeDate(index)}
                     className="text-white bg-primary hover:bg-secondary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                   >
                     {format(grid.date, "M月d日")}
@@ -49,6 +49,9 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               </div>
             ))}
           </div>
+          <div
+            className={`grid grid-cols-${grids[groupId].rooms.length}`}
+          ></div>
         </>
       )}
     </div>
