@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface SessionGrid {
   date: Date,
@@ -69,6 +69,7 @@ const useSessionizeGrids = (id: string) => {
   const [isLoading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const effectRan = useRef(false)
   useEffect(() => {
     const fetchSessions = async () => {
       try {
@@ -77,7 +78,6 @@ const useSessionizeGrids = (id: string) => {
           throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data);
         const parsed = data.map((grid: SessionGrid) => {
           grid.date = new Date(grid.date);
           grid.rooms = grid.rooms.map((room: Room) => {
@@ -93,7 +93,6 @@ const useSessionizeGrids = (id: string) => {
           });
           return grid;
         });
-        console.log(parsed);
         setGrids(parsed);
         setLoading(false);
       } catch (error) {
@@ -107,7 +106,12 @@ const useSessionizeGrids = (id: string) => {
       }
     };
 
-    fetchSessions();
+    if (effectRan.current === false) {
+      fetchSessions();
+      return () => {
+        effectRan.current = true
+      }
+    }
   }, [id]);
 
   return { grids, isLoading, error };
