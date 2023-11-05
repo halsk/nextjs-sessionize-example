@@ -20,7 +20,10 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
           <div className="grid grid-cols-2 gap-4">
             {grids.map((grid, index) => (
               <div key={index}>
-                <Link href={{ hash: index.toString() }}>
+                <Link
+                  href={{ hash: index.toString() }}
+                  className="text-white bg-primary hover:bg-secondary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                >
                   {format(grid.date, "M月d日")}
                 </Link>
               </div>
