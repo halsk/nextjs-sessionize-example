@@ -3,6 +3,7 @@ import useSessionizeGrids from "@/hooks/useSessionizeData";
 import React, { Fragment, useEffect } from "react";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { Room } from "@/sessionize/sessionizeApi";
 
 // props of session ID
 type Props = {
@@ -24,6 +25,12 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     setGroupId(index);
     router.push(`/#${index.toString()}`);
   };
+  // get session by filtering room ID
+  const findRoom = (rooms: Room[], roomId: number) => {
+    return rooms.find((room) => {
+      return room.id === roomId;
+    });
+  };
   const { grids, isLoading, error } = useSessionizeGrids(id);
   return (
     <div className="schedule">
@@ -34,7 +41,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
           <div className="text-md font-medium text-center text-primary border-b border-gray-200">
             <ul className="flex flex-wrap -mb-px">
               {grids.map((grid, index) => (
-                <li key={`date-${index}`}>
+                <Fragment key={`date-${index}`}>
                   {index !== groupId ? (
                     <li className="mr-2">
                       <a
@@ -50,7 +57,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                       {format(grid.date, "M月d日")}
                     </li>
                   )}
-                </li>
+                </Fragment>
               ))}
             </ul>
           </div>
@@ -68,28 +75,37 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
             ))}
             {grids[groupId].timeSlots.map((timeSlot, index) => (
               <Fragment key={`time-${index}`}>
-                <div key={`timeSlot-${index}`}>{timeSlot.slotStart}</div>
-                {grids[groupId].rooms.map((_, index) => (
+                <div
+                  key={`slotStart-${index}`}
+                  className="bg-highlight px-5 py-2.5 flex mb-2 mr-2 justify-center items-center font-medium"
+                >
+                  {timeSlot.slotStart}
+                </div>
+                {grids[groupId].rooms.map((room, index) => (
                   <Fragment key={`room-${index}`}>
-                    {timeSlot.rooms[index] ? (
+                    {findRoom(timeSlot.rooms, room.id) ? (
                       <>
-                        {timeSlot.rooms[index].session?.isPlenumSession ? (
+                        {findRoom(timeSlot.rooms, room.id)!.session
+                          ?.isPlenumSession ? (
                           <div
-                            key={`timeSlot-${index}-2`}
-                            className={`col-span-${grids[groupId].rooms.length}`}
+                            key={`session-${index}`}
+                            className={`col-span-${grids[groupId].rooms.length} bg-highlight py-2.5 flex mb-2 mr-2 justify-center items-center font-medium`}
                           >
-                            {timeSlot.rooms[0].session!.title}a
+                            {findRoom(timeSlot.rooms, room.id)!.session!.title}
                           </div>
                         ) : (
-                          <div key={`timeSlot-${index}-2`}>
-                            {timeSlot.rooms[index].session!.title}
+                          <div
+                            key={`sessio-${index}`}
+                            className=" bg-highlight py-2.5 flex mb-2 mr-2 justify-center items-center font-medium"
+                          >
+                            {findRoom(timeSlot.rooms, room.id)!.session!.title}
                           </div>
                         )}
                       </>
                     ) : (
                       <>
                         {!timeSlot.rooms[0].session?.isPlenumSession && (
-                          <div key={`timeSlot-${index}-2`}></div>
+                          <div key={`session-${index}`}></div>
                         )}
                       </>
                     )}

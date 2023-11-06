@@ -4,7 +4,7 @@ export interface SessionGrid {
   rooms: Room[],
   timeSlots: TimeSlot[]
 }
-interface Room {
+export interface Room {
   id: number,
   name: string,
   session: Session | undefined, // only for SessionGrid.timeSlots
