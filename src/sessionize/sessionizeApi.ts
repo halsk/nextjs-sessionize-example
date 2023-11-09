@@ -12,7 +12,7 @@ export interface Room {
   hasOnlyPlenumSessions: boolean,
   index: number | undefined
 }
-interface TimeSlot {
+export interface TimeSlot {
   slotStart: string,
   rooms: Room[]
 }
@@ -62,9 +62,8 @@ const convertSessions = (session: Session) => {
   return session;
 }
 
-export const fetchSessionGrids = async (id: string) => {
+export const fetchSessionizeGrids = async (id: string) => {
   // fetch data from sessionize
-  console.log(`call fetchSessionGrids(${id})`);
   const response = await fetch(`https://sessionize.com/api/v2/${id}/view/GridSmart`);
   if (!response.ok) {
     throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
@@ -86,4 +85,24 @@ export const fetchSessionGrids = async (id: string) => {
     return grid;
   });
   return parsed as SessionGrid[];
+};
+
+export const fetchSessionizeSessions = async (id: string) => {
+  // fetch data from sessionize
+  const response = await fetch(`https://sessionize.com/api/v2/${id}/view/Sessions`);
+  if (!response.ok) {
+    throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data.map(convertSessions)
+};
+export const fetchSessionizeSpeakers = async (id: string) => {
+  // fetch data from sessionize
+  const response = await fetch(`https://sessionize.com/api/v2/${id}/view/Speakers`);
+  if (!response.ok) {
+    throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
+  }
+  const data = await response.json();
+  console.log(data)
+  return data as Speakers[];
 };
