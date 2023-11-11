@@ -12,7 +12,7 @@ const SessionCard: React.FC<Props> = ({ room }) => {
       {room.session && (
         <div
           key={`session-${room.session.id}`}
-          className={`bg-secondary text-white m-1 p-2 ${
+          className={`bg-secondary text-slate-200 m-1 p-2 ${
             room.session.isServiceSession ? "bg-gray-500" : ""
           }`}
           style={{

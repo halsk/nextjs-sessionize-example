@@ -13,7 +13,7 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms }) => {
       {room.session && (
         <div
           key={`session-${room.session.id}`}
-          className={`bg-primary text-white m-1 p-2 ${
+          className={`bg-primary text-slate-200 m-1 p-2 ${
             room.session.isServiceSession ? "bg-gray-500" : ""
           }`}
           style={{
@@ -26,8 +26,8 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms }) => {
           {" "}
           <div className="flex justify-center">
             {!room.session.isServiceSession && (
-              <div className="p-1 bg-white text-black text-sm rounded-sm">
-                メインルーム
+              <div className="p-1 bg-slate-200 text-black text-sm rounded-sm">
+                {room.name}
               </div>
             )}
             <SessionTime session={room.session} className="text-center" />

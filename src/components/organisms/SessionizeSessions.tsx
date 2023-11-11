@@ -7,6 +7,7 @@ import { Room, SessionGrid, TimeSlot } from "@/sessionize/sessionizeApi";
 import { convertHHMM, hhmmddToMinutes } from "@/libs/util";
 import SessionCard from "../molecules/SessionCard";
 import PlenumSessionCard from "../molecules/PlenumSessionCard";
+import GridSelector from "../molecules/GridSelector";
 
 // props of session ID
 type Props = {
@@ -85,29 +86,11 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
       {isLoading && <p>Loading...</p>}
       {!isLoading && (
         <>
-          <div className="text-md font-medium text-center text-primary border-b border-gray-200">
-            <ul className="flex flex-wrap -mb-px">
-              {grids.map((grid, index) => (
-                <Fragment key={`date-${index}`}>
-                  {index !== groupId ? (
-                    <li className="mr-2">
-                      <a
-                        href={`#${index}`}
-                        onClick={changeDate(index)}
-                        className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-secondary hover:border-gray-300 dark:hover:text-gray-300"
-                      >
-                        {format(grid.date, "M月d日")}
-                      </a>
-                    </li>
-                  ) : (
-                    <li className="mr-2 inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
-                      {format(grid.date, "M月d日")}
-                    </li>
-                  )}
-                </Fragment>
-              ))}
-            </ul>
-          </div>
+          <GridSelector
+            grids={grids}
+            groupId={groupId}
+            changeDate={changeDate}
+          />
           <style jsx>{`
             .grid-template {
               display: grid;
@@ -117,19 +100,19 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
           `}</style>
           <div className="grid-template">
             {grids[groupId].rooms.map((room, index) => (
-              <h2
-                className=""
+              <span
+                className="m-1 p-2 bg-gray-100 flex items-end"
                 style={{ gridRow: "tracks", gridColumn: `track-${room.id}` }}
                 key={`room-${index}`}
               >
                 {room.name}
-              </h2>
+              </span>
             ))}
             {grids[groupId].timeSlots.map((timeSlot, index) => (
               <Fragment key={`time-${index}`}>
                 <h2
-                  className=""
                   style={{
+                    gridColumn: "times",
                     gridRow: `time-${convertHHMM(
                       timeSlot.slotStart
                     )} / span ${calcSpan(
@@ -142,6 +125,15 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                   {timeSlot.slotStart.split(":")[0]}:
                   {timeSlot.slotStart.split(":")[1]}
                 </h2>
+                <span
+                  className="border-t-2 border-gray-300"
+                  style={{
+                    gridRow: `time-${convertHHMM(timeSlot.slotStart)}`,
+                    gridColumn: `times/track-${
+                      grids[groupId].rooms[grids[groupId].rooms.length - 1].id
+                    }-end`,
+                  }}
+                ></span>
                 {timeSlot.rooms.map((room, index2) => (
                   <Fragment key={`slot-${index}-room-${index2}`}>
                     {room.session && room.session.isPlenumSession ? (
