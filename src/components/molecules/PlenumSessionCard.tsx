@@ -1,6 +1,7 @@
 import { convertHHMM } from "@/libs/util";
 import { Room } from "@/sessionize/sessionizeApi";
 import SessionTime from "../atoms/SessionTime";
+import { SessionTitle } from "../atoms/SessionTitle";
 
 type Props = {
   room: Room;
@@ -32,9 +33,7 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms }) => {
             )}
             <SessionTime session={room.session} className="text-center" />
           </div>
-          <p className="text-lg font-bold text-center mx-2 my-1">
-            {room.session.title}
-          </p>
+          <SessionTitle session={room.session} className="text-center" />
         </div>
       )}
     </>
