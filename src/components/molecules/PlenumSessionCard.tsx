@@ -1,6 +1,6 @@
-import { calcSessionMinutes, convertHHMM } from "@/libs/util";
+import { convertHHMM } from "@/libs/util";
 import { Room } from "@/sessionize/sessionizeApi";
-import { format } from "date-fns";
+import SessionTime from "../atoms/SessionTime";
 
 type Props = {
   room: Room;
@@ -23,11 +23,8 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms }) => {
             gridRowEnd: `time-${convertHHMM(room.session?.endsAt)}}`,
           }}
         >
-          <p className="text-sm">
-            {format(room.session.startsAt, "HH:mm")}〜
-            {calcSessionMinutes(room.session)}分
-          </p>
-          <p className="text-lg">{room.session.title}</p>
+          <SessionTime session={room.session} className="text-center" />
+          <p className="text-lg text-center mx-2 my-1">{room.session.title}</p>
         </div>
       )}
     </>

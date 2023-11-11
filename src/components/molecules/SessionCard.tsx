@@ -1,6 +1,6 @@
-import { calcSessionMinutes, convertHHMM } from "@/libs/util";
+import { convertHHMM } from "@/libs/util";
 import { Room } from "@/sessionize/sessionizeApi";
-import { format } from "date-fns";
+import SessionTime from "../atoms/SessionTime";
 
 type Props = {
   room: Room;
@@ -22,11 +22,8 @@ const SessionCard: React.FC<Props> = ({ room }) => {
             zIndex: 1,
           }}
         >
-          <p className="text-sm">
-            {format(room.session.startsAt, "HH:mm")}〜
-            {calcSessionMinutes(room.session)}分
-          </p>
-          <p className="text-lg">{room.session.title}</p>
+          <SessionTime session={room.session} />
+          <p className="text-lg mx-2 my-1">{room.session.title}</p>
         </div>
       )}
     </>
