@@ -6,11 +6,9 @@ type Props = {
 };
 export const Speakers: React.FC<Props> = ({ speakers, ...rest }) => {
   return (
-    <div className={`flex flex-wrap my-2 text-sm ${rest.className || ""}`}>
+    <div className={`flex flex-wrap mx-2 my-2 text-sm ${rest.className || ""}`}>
       {speakers.map((speaker, index) => (
-        <div className="mx-2" key={speaker.id}>
-          {(index ? "," : "") + speaker.name}
-        </div>
+        <div key={speaker.id}>{(index ? "," : "") + speaker.name}</div>
       ))}
     </div>
   );
