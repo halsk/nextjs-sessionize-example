@@ -1,5 +1,8 @@
 "use client";
-import useSessionizeGrids from "@/hooks/useSessionizeData";
+import {
+  useSessionizeGrids,
+  useSessionizeSpeakers,
+} from "@/hooks/useSessionizeData";
 import React, { Fragment, useEffect } from "react";
 import { format, addMinutes, isBefore, isAfter } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -80,6 +83,11 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     return Math.round(diff / 5);
   };
   const { grids, isLoading, error } = useSessionizeGrids(id);
+  const {
+    speakers,
+    isLoading: isSpeakerLoading,
+    error: errorSpeakerLoaging,
+  } = useSessionizeSpeakers(id);
   return (
     <div className="schedule">
       {error && <p>{error}</p>}
@@ -144,9 +152,10 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                       <PlenumSessionCard
                         room={room}
                         rooms={grids[groupId].rooms}
+                        speakers={speakers}
                       />
                     ) : (
-                      <SessionCard room={room} />
+                      <SessionCard room={room} speakers={speakers} />
                     )}
                   </Fragment>
                 ))}

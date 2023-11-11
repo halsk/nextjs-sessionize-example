@@ -1,14 +1,15 @@
 import { convertHHMM } from "@/libs/util";
-import { Room } from "@/sessionize/sessionizeApi";
+import { FullSpeaker, Room } from "@/sessionize/sessionizeApi";
 import SessionTime from "../atoms/SessionTime";
 import { SessionTitle } from "../atoms/SessionTitle";
-import { Speakers } from "./Speakers";
+import { SpeakersFilter } from "./SpeakersFilter";
 
 type Props = {
   room: Room;
+  speakers: FullSpeaker[];
 };
 
-const SessionCard: React.FC<Props> = ({ room }) => {
+const SessionCard: React.FC<Props> = ({ room, speakers }) => {
   return (
     <>
       {room.session && (
@@ -26,7 +27,10 @@ const SessionCard: React.FC<Props> = ({ room }) => {
         >
           <SessionTime session={room.session} />
           <SessionTitle session={room.session} />
-          <Speakers speakers={room.session.speakers} />
+          <SpeakersFilter
+            speakerslist={speakers}
+            speakers={room.session.speakers}
+          />
         </div>
       )}
     </>

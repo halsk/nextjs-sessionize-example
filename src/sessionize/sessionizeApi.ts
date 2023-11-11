@@ -44,7 +44,6 @@ export interface Speaker {
   id: string,
   name: string
 }
-
 export interface Category {
   id: number,
   name: string,
@@ -56,6 +55,40 @@ interface CategoryItems {
   id: number,
   name: string
 }
+
+/**
+ * For Speaker API
+ */
+export interface FullSpeaker {
+  id: string,
+  bio: string,
+  firstName: string,
+  fullName: string,
+  lastName: string,
+  links: ProfileLink[],
+  profilePicture?: string,
+  questionAnswers: QestionAnswer[],
+  sessions: SpeakersSession[],
+  tagLine: string
+}
+export interface ProfileLink {
+  title: string,
+  url: string,
+  linkType: string
+}
+export interface QestionAnswer {
+  question: string,
+  answer: string,
+  answerExtra?: string | null,
+  id: number,
+  questionType: string,
+  sort: number
+}
+export interface SpeakersSession {
+  id: number,
+  name: string
+}
+
 const convertSessions = (session: Session) => {
   session.startsAt = new Date(session.startsAt);
   session.endsAt = new Date(session.endsAt);
@@ -105,5 +138,5 @@ export const fetchSessionizeSpeakers = async (id: string) => {
   }
   const data = await response.json();
   console.log(data)
-  return data as Speaker[];
+  return data as FullSpeaker[];
 };
