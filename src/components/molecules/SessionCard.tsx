@@ -23,7 +23,7 @@ const SessionCard: React.FC<Props> = ({ room }) => {
           }}
         >
           <SessionTime session={room.session} />
-          <p className="text-lg mx-2 my-1">{room.session.title}</p>
+          <p className="text-lg font-bold mx-2 my-1">{room.session.title}</p>
         </div>
       )}
     </>

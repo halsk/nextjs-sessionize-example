@@ -23,8 +23,18 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms }) => {
             gridRowEnd: `time-${convertHHMM(room.session?.endsAt)}}`,
           }}
         >
-          <SessionTime session={room.session} className="text-center" />
-          <p className="text-lg text-center mx-2 my-1">{room.session.title}</p>
+          {" "}
+          <div className="flex justify-center">
+            {!room.session.isServiceSession && (
+              <div className="p-1 bg-white text-black text-sm rounded-sm">
+                メインルーム
+              </div>
+            )}
+            <SessionTime session={room.session} className="text-center" />
+          </div>
+          <p className="text-lg font-bold text-center mx-2 my-1">
+            {room.session.title}
+          </p>
         </div>
       )}
     </>
