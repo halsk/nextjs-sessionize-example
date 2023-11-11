@@ -110,7 +110,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
             {/* show room name */}
             {grids[groupId].rooms.map((room, index) => (
               <span
-                className="m-1 p-2 bg-gray-100 flex items-end"
+                className="m-1 p-2 bg-gray-100 flex items-end sticky top-0 opacity-80 z-10"
                 style={{ gridRow: "tracks", gridColumn: `track-${room.id}` }}
                 key={`room-${index}`}
               >
