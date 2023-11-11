@@ -99,6 +99,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
             }
           `}</style>
           <div className="grid-template">
+            {/* show room name */}
             {grids[groupId].rooms.map((room, index) => (
               <span
                 className="m-1 p-2 bg-gray-100 flex items-end"
@@ -109,6 +110,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               </span>
             ))}
             {grids[groupId].timeSlots.map((timeSlot, index) => (
+              // show time slot
               <Fragment key={`time-${index}`}>
                 <h2
                   style={{
@@ -125,6 +127,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                   {timeSlot.slotStart.split(":")[0]}:
                   {timeSlot.slotStart.split(":")[1]}
                 </h2>
+                {/* show border */}
                 <span
                   className="border-t-2 border-gray-300"
                   style={{
@@ -134,6 +137,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                     }-end`,
                   }}
                 ></span>
+                {/* show session card */}
                 {timeSlot.rooms.map((room, index2) => (
                   <Fragment key={`slot-${index}-room-${index2}`}>
                     {room.session && room.session.isPlenumSession ? (
