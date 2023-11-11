@@ -1,4 +1,4 @@
-import { SessionGrid, fetchSessionGrids } from '@/sessionize/sessionizeApi';
+import { SessionGrid, fetchSessionizeGrids } from '@/sessionize/sessionizeApi';
 import { useState, useEffect, useRef } from 'react';
 
 const useSessionizeGrids = (id: string) => {
@@ -9,7 +9,7 @@ const useSessionizeGrids = (id: string) => {
   const fetchSessions = async (id: string) => {
     try {
       // fetch data from sessionize
-      const grids = await fetchSessionGrids(id);
+      const grids = await fetchSessionizeGrids(id);
       setGrids(grids);
       setLoading(false);
     } catch (error) {

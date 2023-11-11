@@ -16,14 +16,14 @@ export interface TimeSlot {
   slotStart: string,
   rooms: Room[]
 }
-interface SessionGroups {
+export interface SessionGroups {
   groupId: number,
   groupName: string,
   sessions: Session[],
   isDefault: boolean
 }
 
-interface Session {
+export interface Session {
   id: string,
   title: string,
   description: string | null,
@@ -40,12 +40,12 @@ interface Session {
   status: string | null
 }
 
-interface Speakers {
+export interface Speakers {
   id: string,
   name: string
 }
 
-interface Category {
+export interface Category {
   id: number,
   name: string,
   categoryItems: CategoryItems[],
@@ -69,6 +69,7 @@ export const fetchSessionizeGrids = async (id: string) => {
     throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
   }
   const data = await response.json();
+  console.log(data)
   const parsed = data.map((grid: SessionGrid) => {
     grid.date = new Date(grid.date);
     grid.rooms = grid.rooms.map((room: Room) => {

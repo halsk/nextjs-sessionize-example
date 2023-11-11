@@ -1,9 +1,12 @@
 "use client";
 import useSessionizeGrids from "@/hooks/useSessionizeData";
 import React, { Fragment, useEffect } from "react";
-import { format } from "date-fns";
+import { format, addMinutes, isBefore, isAfter } from "date-fns";
 import { useRouter } from "next/navigation";
-import { Room } from "@/sessionize/sessionizeApi";
+import { Room, SessionGrid, TimeSlot } from "@/sessionize/sessionizeApi";
+import { convertHHMM, hhmmddToMinutes } from "@/libs/util";
+import SessionCard from "../molecules/SessionCard";
+import PlenumSessionCard from "../molecules/PlenumSessionCard";
 
 // props of session ID
 type Props = {
@@ -30,6 +33,50 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     return rooms.find((room) => {
       return room.id === roomId;
     });
+  };
+  // calculate grid template rows
+  const calculateTemplateRows = (grid: SessionGrid) => {
+    if (!grid) return "";
+    // get event start time and end time
+    const startTime = grid.timeSlots[0].rooms.reduce((acc, room) => {
+      return isBefore(room.session!.startsAt, acc.session!.startsAt)
+        ? room
+        : acc;
+    }).session!.startsAt;
+    const endTime = grid.timeSlots[grid.timeSlots.length - 1].rooms.reduce(
+      (acc, room) => {
+        return isAfter(room.session!.endsAt, acc.session!.endsAt) ? room : acc;
+      }
+    ).session!.endsAt;
+    let rowsStyle = `grid-template-rows: [tracks] auto \n`;
+    for (let d = startTime; isBefore(d, endTime); d = addMinutes(d, 5)) {
+      rowsStyle =
+        rowsStyle + `[time-${format(d, "HHmm")}] var(--fraction-size) \n`;
+    }
+    rowsStyle = rowsStyle + ";";
+    const colsStyle = `grid-template-columns: [times] 4em \n [${grid.rooms
+      .map((room) => `track-${room.id}-start] 1fr \n [track-${room.id}-end`)
+      .join(" ")}];`;
+    return rowsStyle + colsStyle;
+  };
+  // calculate grid span
+  const calcSpan = (timeSlot: TimeSlot, nextTimeSlot: TimeSlot) => {
+    let endTime: string;
+    if (nextTimeSlot == undefined) {
+      endTime = format(
+        timeSlot.rooms.reduce((acc, room) => {
+          return isAfter(room.session!.endsAt, acc.session!.endsAt)
+            ? room
+            : acc;
+        }).session!.endsAt,
+        "HH:mm"
+      );
+    } else {
+      endTime = nextTimeSlot.slotStart;
+    }
+
+    const diff = hhmmddToMinutes(endTime) - hhmmddToMinutes(timeSlot.slotStart);
+    return Math.round(diff / 5);
   };
   const { grids, isLoading, error } = useSessionizeGrids(id);
   return (
@@ -61,53 +108,49 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               ))}
             </ul>
           </div>
-          <div className={`grid grid-cols-${grids[groupId].rooms.length + 1}`}>
-            <div className="bg-highlight px-5 py-2.5 flex mb-2 mr-2 justify-center items-center font-medium">
-              開始時刻
-            </div>
+          <style jsx>{`
+            .grid-template {
+              display: grid;
+              --fraction-size: auto;
+              ${calculateTemplateRows(grids[groupId])}
+            }
+          `}</style>
+          <div className="grid-template">
             {grids[groupId].rooms.map((room, index) => (
-              <div
+              <h2
+                className=""
+                style={{ gridRow: "tracks", gridColumn: `track-${room.id}` }}
                 key={`room-${index}`}
-                className="bg-secondary px-5 py-2.5 mr-2 mb-2 text-white"
               >
                 {room.name}
-              </div>
+              </h2>
             ))}
             {grids[groupId].timeSlots.map((timeSlot, index) => (
               <Fragment key={`time-${index}`}>
-                <div
-                  key={`slotStart-${index}`}
-                  className="bg-highlight px-5 py-2.5 flex mb-2 mr-2 justify-center items-center font-medium"
+                <h2
+                  className=""
+                  style={{
+                    gridRow: `time-${convertHHMM(
+                      timeSlot.slotStart
+                    )} / span ${calcSpan(
+                      timeSlot,
+                      grids[groupId].timeSlots[index + 1]
+                    )}`,
+                  }}
+                  key={`time-${index}`}
                 >
-                  {timeSlot.slotStart}
-                </div>
-                {grids[groupId].rooms.map((room, index) => (
-                  <Fragment key={`room-${index}`}>
-                    {findRoom(timeSlot.rooms, room.id) ? (
-                      <>
-                        {findRoom(timeSlot.rooms, room.id)!.session
-                          ?.isPlenumSession ? (
-                          <div
-                            key={`session-${index}`}
-                            className={`col-span-${grids[groupId].rooms.length} bg-highlight py-2.5 flex mb-2 mr-2 justify-center items-center font-medium`}
-                          >
-                            {findRoom(timeSlot.rooms, room.id)!.session!.title}
-                          </div>
-                        ) : (
-                          <div
-                            key={`sessio-${index}`}
-                            className=" bg-highlight py-2.5 flex mb-2 mr-2 justify-center items-center font-medium"
-                          >
-                            {findRoom(timeSlot.rooms, room.id)!.session!.title}
-                          </div>
-                        )}
-                      </>
+                  {timeSlot.slotStart.split(":")[0]}:
+                  {timeSlot.slotStart.split(":")[1]}
+                </h2>
+                {timeSlot.rooms.map((room, index2) => (
+                  <Fragment key={`slot-${index}-room-${index2}`}>
+                    {room.session && room.session.isPlenumSession ? (
+                      <PlenumSessionCard
+                        room={room}
+                        rooms={grids[groupId].rooms}
+                      />
                     ) : (
-                      <>
-                        {!timeSlot.rooms[0].session?.isPlenumSession && (
-                          <div key={`session-${index}`}></div>
-                        )}
-                      </>
+                      <SessionCard room={room} />
                     )}
                   </Fragment>
                 ))}
