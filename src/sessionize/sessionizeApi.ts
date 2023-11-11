@@ -31,7 +31,7 @@ export interface Session {
   endsAt: Date,
   isServiceSession: boolean,
   isPlenumSession: boolean,
-  speakers: Speakers[],
+  speakers: Speaker[],
   categories: Category[],
   roomId: number,
   room: string,
@@ -40,7 +40,7 @@ export interface Session {
   status: string | null
 }
 
-export interface Speakers {
+export interface Speaker {
   id: string,
   name: string
 }
@@ -105,5 +105,5 @@ export const fetchSessionizeSpeakers = async (id: string) => {
   }
   const data = await response.json();
   console.log(data)
-  return data as Speakers[];
+  return data as Speaker[];
 };

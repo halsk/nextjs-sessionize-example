@@ -2,6 +2,7 @@ import { convertHHMM } from "@/libs/util";
 import { Room } from "@/sessionize/sessionizeApi";
 import SessionTime from "../atoms/SessionTime";
 import { SessionTitle } from "../atoms/SessionTitle";
+import { Speakers } from "./Speakers";
 
 type Props = {
   room: Room;
@@ -13,7 +14,7 @@ const SessionCard: React.FC<Props> = ({ room }) => {
       {room.session && (
         <div
           key={`session-${room.session.id}`}
-          className={`bg-secondary text-slate-200 m-1 p-2 ${
+          className={`text-left bg-secondary text-slate-200 m-1 p-2 ${
             room.session.isServiceSession ? "bg-gray-500" : ""
           }`}
           style={{
@@ -25,6 +26,7 @@ const SessionCard: React.FC<Props> = ({ room }) => {
         >
           <SessionTime session={room.session} />
           <SessionTitle session={room.session} />
+          <Speakers speakers={room.session.speakers} />
         </div>
       )}
     </>
