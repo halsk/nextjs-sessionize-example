@@ -108,7 +108,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               }
             }
           `}</style>
-          <div className="grid-template">
+          <div className="grid-template mt-2">
             {/* show room name */}
             {grids[groupId].rooms.map((room, index) => (
               <span
