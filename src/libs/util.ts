@@ -1,14 +1,27 @@
 import { differenceInMinutes, format } from "date-fns";
 import { Session } from "@/sessionize/sessionizeApi";
 
+type hashParam = {
+  page?: number,
+  sessionId?: string
+}
 export const parseWindowHash = () => {
   const hash = window.location.hash
     ? window.location.hash.replace("#", "")
     : "0";
-  return { page: parseInt(hash), session: undefined }
+  const params = hash.split("_");
+  return { page: parseInt(params[0]), sessionId: params[1] }
 }
-export const createHash = (page: number, session?: Session) => {
-  return `/#${page.toString()}`
+export const createHash = (param: hashParam) => {
+  // get current hash
+  const hash = parseWindowHash();
+  if (param.page !== undefined) {
+    hash.page = param.page;
+  }
+  if (param.sessionId) {
+    hash.sessionId = param.sessionId;
+  }
+  return `/#${hash.page.toString() + (hash.sessionId ? "_" + hash.sessionId : "")}`
 }
 export const hhmmddToMinutes = (hhmm: string | Date) => {
   if (typeof hhmm === "string") {

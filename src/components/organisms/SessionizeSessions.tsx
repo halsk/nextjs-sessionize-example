@@ -30,7 +30,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   >();
   // get hash from URL
   useEffect(() => {
-    const { page, session } = parseWindowHash();
+    const { page, sessionId } = parseWindowHash();
     setGroupId(page);
   }, []);
   const selectSession = (session: Session) => {
@@ -39,7 +39,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   // change hash and URL
   const changeDate = (index: number) => () => {
     setGroupId(index);
-    router.push(createHash(index, selectedSession));
+    router.push(createHash({ page: index, sessionId: selectedSession?.id }));
   };
   // calculate grid template rows
   const calculateTemplateRows = (grid: SessionGrid) => {
