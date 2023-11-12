@@ -22,7 +22,7 @@ const GridSelector: React.FC<GridSelectorProps> = ({
                 <a
                   href={`#${index}`}
                   onClick={changeDate(index)}
-                  className="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-500"
+                  className="no-underline inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-blue-500"
                 >
                   {format(grid.date, "M月d日")}
                 </a>

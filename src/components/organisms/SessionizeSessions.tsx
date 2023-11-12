@@ -6,16 +6,16 @@ import {
 import React, { Fragment, useEffect } from "react";
 import { format, addMinutes, isBefore, isAfter } from "date-fns";
 import { useRouter } from "next/navigation";
+import { Session, SessionGrid, TimeSlot } from "@/sessionize/sessionizeApi";
 import {
-  Room,
-  Session,
-  SessionGrid,
-  TimeSlot,
-} from "@/sessionize/sessionizeApi";
-import { convertHHMM, hhmmddToMinutes } from "@/libs/util";
+  convertHHMM,
+  createHash,
+  hhmmddToMinutes,
+  parseWindowHash,
+} from "@/libs/util";
 import SessionCard from "../molecules/SessionCard";
 import GridSelector from "../molecules/GridSelector";
-import SessionDetail from "../molecules/SessionDetail";
+import SessionDetail from "../molecules/SessionDetailBox";
 
 // props of session ID
 type Props = {
@@ -30,10 +30,8 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   >();
   // get hash from URL
   useEffect(() => {
-    const _hash = window.location.hash
-      ? window.location.hash.replace("#", "")
-      : "1";
-    setGroupId(Number(_hash));
+    const { page, session } = parseWindowHash();
+    setGroupId(page);
   }, []);
   const selectSession = (session: Session) => {
     setSelectedSession(session);
@@ -41,13 +39,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   // change hash and URL
   const changeDate = (index: number) => () => {
     setGroupId(index);
-    router.push(`/#${index.toString()}`);
-  };
-  // get session by filtering room ID
-  const findRoom = (rooms: Room[], roomId: number) => {
-    return rooms.find((room) => {
-      return room.id === roomId;
-    });
+    router.push(createHash(index, selectedSession));
   };
   // calculate grid template rows
   const calculateTemplateRows = (grid: SessionGrid) => {

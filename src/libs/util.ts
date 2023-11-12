@@ -1,6 +1,15 @@
-import { Session } from "@/sessionize/sessionizeApi";
 import { differenceInMinutes, format } from "date-fns";
+import { Session } from "@/sessionize/sessionizeApi";
 
+export const parseWindowHash = () => {
+  const hash = window.location.hash
+    ? window.location.hash.replace("#", "")
+    : "0";
+  return { page: parseInt(hash), session: undefined }
+}
+export const createHash = (page: number, session?: Session) => {
+  return `/#${page.toString()}`
+}
 export const hhmmddToMinutes = (hhmm: string | Date) => {
   if (typeof hhmm === "string") {
     const [hours, minutes] = hhmm.split(":");
