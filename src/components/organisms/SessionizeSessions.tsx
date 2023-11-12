@@ -108,7 +108,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   return (
     <div className="schedule px-4 md:px-16">
       {error && <p>{error}</p>}
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p className="text-center m-4">Loading...</p>}
       {!isLoading && (
         <>
           <GridSelector

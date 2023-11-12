@@ -10,7 +10,7 @@ export const SessionTitle: React.FC<Props> = ({
   ...rest
 }) => {
   return (
-    <p
+    <div
       className={`text-lg font-bold mx-2 my-1 ${
         session.isPlenumSession && "md:text-center"
       } ${rest.className || ""}`}
@@ -20,6 +20,6 @@ export const SessionTitle: React.FC<Props> = ({
       ) : (
         <a onClick={() => selectSession(session)}>{session.title}</a>
       )}
-    </p>
+    </div>
   );
 };
