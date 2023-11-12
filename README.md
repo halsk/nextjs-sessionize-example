@@ -1,11 +1,7 @@
-# A NextJS template for displaying Sessionize contetnt
+# A NextJS template for displaying Sessionize contetnt from their API.
 
-I created this template because I wanted to display Sessionize sessions.
-You need to enable Sessionize API and add your Sessionize ID on `.env.local` from the API settings.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I created this template because I wanted to customize Sessionize sessions.
+To use this template, you have to enable Sessionize API and add your Sessionize ID on `.env.local` from the API settings.
 
 ## Getting Started
 
