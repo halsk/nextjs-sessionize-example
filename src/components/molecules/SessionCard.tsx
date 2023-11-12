@@ -11,7 +11,12 @@ type Props = {
   selectSession: (session: Session) => void;
 };
 
-const SessionCard: React.FC<Props> = ({ room, rooms, speakers }) => {
+const SessionCard: React.FC<Props> = ({
+  room,
+  rooms,
+  speakers,
+  selectSession,
+}) => {
   return (
     <>
       {room.session && (
@@ -37,7 +42,7 @@ const SessionCard: React.FC<Props> = ({ room, rooms, speakers }) => {
         >
           {" "}
           <SessionTime room={room} />
-          <SessionTitle session={room.session} />
+          <SessionTitle session={room.session} selectSession={selectSession} />
           <SpeakersFilter
             speakerslist={speakers}
             speakers={room.session.speakers}
