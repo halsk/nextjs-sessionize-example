@@ -35,6 +35,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   }, []);
   const selectSession = (session: Session) => {
     setSelectedSession(session);
+    router.push(createHash({ sessionId: session.id }));
   };
   // change hash and URL
   const changeDate = (index: number) => () => {
@@ -91,6 +92,19 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     isLoading: isSpeakerLoading,
     error: errorSpeakerLoaging,
   } = useSessionizeSpeakers(id);
+  useEffect(() => {
+    if (grids.length == 0) return;
+    const { sessionId } = parseWindowHash();
+    if (sessionId) {
+      const session = grids[groupId].timeSlots
+        .map((timeSlot) => timeSlot.rooms.map((room) => room.session))
+        .flat()
+        .find((session) => session?.id === sessionId);
+      if (session) {
+        setSelectedSession(session);
+      }
+    }
+  }, [grids, groupId]);
   return (
     <div className="schedule px-4 md:px-16">
       {error && <p>{error}</p>}
@@ -167,6 +181,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               session={selectedSession}
               closeWindow={() => {
                 setSelectedSession(undefined);
+                router.push(createHash({ sessionId: "" }));
               }}
             />
           </div>

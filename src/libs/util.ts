@@ -18,7 +18,7 @@ export const createHash = (param: hashParam) => {
   if (param.page !== undefined) {
     hash.page = param.page;
   }
-  if (param.sessionId) {
+  if (param.sessionId !== undefined) {
     hash.sessionId = param.sessionId;
   }
   return `/#${hash.page.toString() + (hash.sessionId ? "_" + hash.sessionId : "")}`
