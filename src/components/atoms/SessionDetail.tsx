@@ -5,8 +5,13 @@ import { SpeakersFilter } from "../molecules/SpeakersFilter";
 type Props = {
   session: Session;
   speakerlist: FullSpeaker[];
+  showSpeakerDetail?: boolean;
 };
-export const SessionDetail: React.FC<Props> = ({ session, speakerlist }) => {
+export const SessionDetail: React.FC<Props> = ({
+  session,
+  speakerlist,
+  showSpeakerDetail,
+}) => {
   return (
     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
       <div className="sm:flex sm:items-start">
@@ -21,9 +26,13 @@ export const SessionDetail: React.FC<Props> = ({ session, speakerlist }) => {
             <p className="text-sm text-gray-500 text-left">
               {session?.description}
             </p>
+            <h3 className="mt-4 text-base font-semibold text-gray-900 text-left">
+              スピーカー
+            </h3>
             <SpeakersFilter
               speakers={session.speakers}
               speakerslist={speakerlist}
+              showSpeakerDetail={showSpeakerDetail}
             />
           </div>
         </div>

@@ -3,11 +3,13 @@ import { Speakers } from "./Speakers";
 type Props = {
   speakerslist: FullSpeaker[];
   speakers: Speaker[];
+  showSpeakerDetail?: boolean;
   [key: string]: any; // This line allows any additional properties
 };
 export const SpeakersFilter: React.FC<Props> = ({
   speakerslist,
   speakers,
+  showSpeakerDetail,
   ...rest
 }) => {
   const selectedSpeakers = speakerslist.filter((speaker) =>
@@ -18,6 +20,7 @@ export const SpeakersFilter: React.FC<Props> = ({
     <Speakers
       speakers={selectedSpeakers}
       className={`${rest.className || ""}`}
+      showSpeakerDetail={showSpeakerDetail}
     />
   );
 };
