@@ -25,7 +25,7 @@ const SessionCard: React.FC<Props> = ({ room, speakers }) => {
             zIndex: 1,
           }}
         >
-          <SessionTime session={room.session} />
+          <SessionTime room={room} />
           <SessionTitle session={room.session} />
           <SpeakersFilter
             speakerslist={speakers}

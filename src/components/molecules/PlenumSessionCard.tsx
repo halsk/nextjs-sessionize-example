@@ -2,7 +2,6 @@ import { convertHHMM } from "@/libs/util";
 import { Room, FullSpeaker } from "@/sessionize/sessionizeApi";
 import SessionTime from "../atoms/SessionTime";
 import { SessionTitle } from "../atoms/SessionTitle";
-import { Speakers } from "./Speakers";
 import { SpeakersFilter } from "./SpeakersFilter";
 
 type Props = {
@@ -28,19 +27,12 @@ const PlenumSessionCard: React.FC<Props> = ({ room, rooms, speakers }) => {
           }}
         >
           {" "}
-          <div className="flex justify-center">
-            {!room.session.isServiceSession && (
-              <div className="p-1 bg-slate-200 text-black text-sm rounded-sm">
-                {room.name}
-              </div>
-            )}
-            <SessionTime session={room.session} className="text-center" />
-          </div>
-          <SessionTitle session={room.session} className="text-center" />
+          <SessionTime room={room} />
+          <SessionTitle session={room.session} className="md:text-center" />
           <SpeakersFilter
             speakerslist={speakers}
             speakers={room.session.speakers}
-            className="justify-center"
+            className="md:justify-center"
           />
         </div>
       )}
