@@ -18,8 +18,8 @@ const config: Config = {
         secondary: '#003877',
         highlight: '#CED7E4',
       },
+      darkMode: false,
     },
-    darkMode: false,
   },
   safelist: [
     // Generate classes from grid-cols-1 to grid-cols-12

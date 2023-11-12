@@ -89,7 +89,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     error: errorSpeakerLoaging,
   } = useSessionizeSpeakers(id);
   return (
-    <div className="schedule">
+    <div className="schedule px-4 md:px-16">
       {error && <p>{error}</p>}
       {isLoading && <p>Loading...</p>}
       {!isLoading && (
@@ -100,17 +100,19 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
             changeDate={changeDate}
           />
           <style jsx>{`
-            .grid-template {
-              display: grid;
-              --fraction-size: auto;
-              ${calculateTemplateRows(grids[groupId])}
+            @media (min-width: 768px) {
+              .grid-template {
+                display: grid;
+                --fraction-size: auto;
+                ${calculateTemplateRows(grids[groupId])}
+              }
             }
           `}</style>
           <div className="grid-template">
             {/* show room name */}
             {grids[groupId].rooms.map((room, index) => (
               <span
-                className="m-1 p-2 bg-gray-100 flex items-end sticky top-0 opacity-80 z-10"
+                className="hidden md:flex m-1 p-2 bg-gray-100 items-end sticky top-0 opacity-80 z-10 "
                 style={{ gridRow: "tracks", gridColumn: `track-${room.id}` }}
                 key={`room-${index}`}
               >
@@ -137,7 +139,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                 </h2>
                 {/* show border */}
                 <span
-                  className="border-t-2 border-gray-300"
+                  className="hidden md:inline border-t-2 border-gray-300"
                   style={{
                     gridRow: `time-${convertHHMM(timeSlot.slotStart)}`,
                     gridColumn: `times/track-${
