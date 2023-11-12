@@ -171,7 +171,12 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                 ))}
               </Fragment>
             ))}
-            <SessionDetail session={selectedSession} />
+            <SessionDetail
+              session={selectedSession}
+              closeWindow={() => {
+                setSelectedSession(undefined);
+              }}
+            />
           </div>
         </>
       )}
