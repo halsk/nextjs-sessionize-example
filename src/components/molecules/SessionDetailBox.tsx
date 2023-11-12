@@ -1,12 +1,17 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Session } from "@/sessionize/sessionizeApi";
+import { Session, FullSpeaker } from "@/sessionize/sessionizeApi";
 import { SessionDetail } from "../atoms/SessionDetail";
 type Props = {
   session?: Session;
+  speakerlist: FullSpeaker[];
   closeWindow: () => void;
 };
-const SessionDetailBox: React.FC<Props> = ({ session, closeWindow }) => {
+const SessionDetailBox: React.FC<Props> = ({
+  session,
+  closeWindow,
+  speakerlist,
+}) => {
   useEffect(() => {
     if (session) {
       setOpen(true);
@@ -52,7 +57,9 @@ const SessionDetailBox: React.FC<Props> = ({ session, closeWindow }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                {session && <SessionDetail session={session} />}
+                {session && (
+                  <SessionDetail session={session} speakerlist={speakerlist} />
+                )}
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"

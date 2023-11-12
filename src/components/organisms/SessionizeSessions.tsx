@@ -179,6 +179,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
             ))}
             <SessionDetail
               session={selectedSession}
+              speakerlist={speakers}
               closeWindow={() => {
                 setSelectedSession(undefined);
                 router.push(createHash({ sessionId: "" }));
