@@ -7,12 +7,14 @@ type Props = {
   speakerlist: FullSpeaker[];
   showSpeakerDetail?: boolean;
   closeWindow: () => void;
+  sessionCategory?: number;
 };
 const SessionDetailBox: React.FC<Props> = ({
   session,
   closeWindow,
   speakerlist,
   showSpeakerDetail,
+  sessionCategory,
 }) => {
   useEffect(() => {
     if (session) {
@@ -64,6 +66,7 @@ const SessionDetailBox: React.FC<Props> = ({
                     session={session}
                     speakerlist={speakerlist}
                     showSpeakerDetail={showSpeakerDetail}
+                    sessionCategory={sessionCategory}
                   />
                 )}
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
