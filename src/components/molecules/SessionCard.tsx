@@ -37,7 +37,8 @@ const SessionCard: React.FC<Props> = ({
                 : room.id
             }`,
             gridRowStart: `time-${convertHHMM(room.session?.startsAt)}`,
-            gridRowEnd: `time-${convertHHMM(room.session?.endsAt)}}`,
+            gridRowEnd: `time-${convertHHMM(room.session?.endsAt)}`,
+            zIndex: room.session.isPlenumSession ? 1 : 2,
           }}
         >
           {" "}
