@@ -14,7 +14,7 @@ export const Speakers: React.FC<Props> = ({
   if (!showSpeakerDetail) {
     return (
       <div
-        className={`flex flex-wrap text-gray-500 my-2 mx-2 text-sm ${
+        className={`flex flex-wrap text-gray-300 my-2 mx-2 text-sm ${
           rest.className || ""
         }`}
       >
