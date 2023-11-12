@@ -6,11 +6,16 @@ import {
 import React, { Fragment, useEffect } from "react";
 import { format, addMinutes, isBefore, isAfter } from "date-fns";
 import { useRouter } from "next/navigation";
-import { Room, SessionGrid, TimeSlot } from "@/sessionize/sessionizeApi";
+import {
+  Room,
+  Session,
+  SessionGrid,
+  TimeSlot,
+} from "@/sessionize/sessionizeApi";
 import { convertHHMM, hhmmddToMinutes } from "@/libs/util";
 import SessionCard from "../molecules/SessionCard";
-import PlenumSessionCard from "../molecules/PlenumSessionCard";
 import GridSelector from "../molecules/GridSelector";
+import SessionDetail from "../molecules/SessionDetail";
 
 // props of session ID
 type Props = {
@@ -20,6 +25,9 @@ type Props = {
 const SessionizeSessions: React.FC<Props> = ({ id }) => {
   const router = useRouter();
   const [groupId, setGroupId] = React.useState(1);
+  const [selectedSession, setSelectedSession] = React.useState<
+    Session | undefined
+  >();
   // get hash from URL
   useEffect(() => {
     const _hash = window.location.hash
@@ -27,6 +35,9 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
       : "1";
     setGroupId(Number(_hash));
   }, []);
+  const selectSession = (session: Session) => {
+    setSelectedSession(session);
+  };
   // change hash and URL
   const changeDate = (index: number) => () => {
     setGroupId(index);
@@ -150,19 +161,17 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                 {/* show session card */}
                 {timeSlot.rooms.map((room, index2) => (
                   <Fragment key={`slot-${index}-room-${index2}`}>
-                    {room.session && room.session.isPlenumSession ? (
-                      <PlenumSessionCard
-                        room={room}
-                        rooms={grids[groupId].rooms}
-                        speakers={speakers}
-                      />
-                    ) : (
-                      <SessionCard room={room} speakers={speakers} />
-                    )}
+                    <SessionCard
+                      room={room}
+                      rooms={grids[groupId].rooms}
+                      speakers={speakers}
+                      selectSession={selectSession}
+                    />
                   </Fragment>
                 ))}
               </Fragment>
             ))}
+            <SessionDetail session={selectedSession} />
           </div>
         </>
       )}

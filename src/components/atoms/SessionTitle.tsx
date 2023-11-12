@@ -5,7 +5,11 @@ type Props = {
 };
 export const SessionTitle: React.FC<Props> = ({ session, ...rest }) => {
   return (
-    <p className={`text-lg font-bold mx-2 my-1 ${rest.className || ""}`}>
+    <p
+      className={`text-lg font-bold mx-2 my-1 ${
+        session.isPlenumSession && "md:text-center"
+      } ${rest.className || ""}`}
+    >
       {session.title}
     </p>
   );

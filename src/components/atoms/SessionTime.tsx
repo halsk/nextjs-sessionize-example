@@ -16,7 +16,11 @@ const SessionTime: React.FC<Props> = ({ room, ...rest }) => {
   };
   if (room.session === undefined) return null;
   return (
-    <div className="flex md:justify-center">
+    <div
+      className={`flex mx-2 ${
+        isPlenumSession(room.session) && "md:justify-center"
+      }`}
+    >
       {!isServiceSession(room.session) && (
         <div
           className={`block ${
