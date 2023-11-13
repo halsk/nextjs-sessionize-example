@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "デッカイギ 2023 スケジュール",
-  description: "デッカイギ 2023 の助ウールです",
+  title: "デッカイギ 2024 スケジュール",
+  description: "デッカイギ 2024 のスケジュールです",
 };
 
 export default function RootLayout({
