@@ -8,6 +8,7 @@ type Props = {
   room: Room;
   rooms: Room[];
   speakers: FullSpeaker[];
+  sessionTypeCategoryId?: number;
   selectSession: (session: Session) => void;
 };
 
@@ -15,6 +16,7 @@ const SessionCard: React.FC<Props> = ({
   room,
   rooms,
   speakers,
+  sessionTypeCategoryId,
   selectSession,
 }) => {
   return (
@@ -42,7 +44,10 @@ const SessionCard: React.FC<Props> = ({
           }}
         >
           {" "}
-          <SessionTime room={room} />
+          <SessionTime
+            room={room}
+            sessionTypeCategoryId={sessionTypeCategoryId}
+          />
           <SessionTitle session={room.session} selectSession={selectSession} />
           <SpeakersFilter
             speakerslist={speakers}

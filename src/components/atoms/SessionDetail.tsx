@@ -7,15 +7,15 @@ type Props = {
   session: Session;
   speakerlist: FullSpeaker[];
   showSpeakerDetail?: boolean;
-  sessionCategory?: number;
+  sessionTypeCategoryId?: number;
 };
 export const SessionDetail: React.FC<Props> = ({
   session,
   speakerlist,
   showSpeakerDetail,
-  sessionCategory,
+  sessionTypeCategoryId,
 }) => {
-  const ignoreCategories = sessionCategory ? [sessionCategory] : [];
+  const ignoreCategories = sessionTypeCategoryId ? [sessionTypeCategoryId] : [];
   return (
     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
       <div className="sm:flex sm:items-start">

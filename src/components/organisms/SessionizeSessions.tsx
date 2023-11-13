@@ -28,13 +28,16 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
   const [selectedSession, setSelectedSession] = React.useState<
     Session | undefined
   >();
-  const [sessionCategory, setSessionCategory] = React.useState<number>();
+  const [sessionTypeCategoryId, setSessionTypeCategoryId] =
+    React.useState<number>();
   // get hash from URL
   useEffect(() => {
     const { page, sessionId } = parseWindowHash();
     // if session ID is specified, set session ID to ignore category
     if (process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID) {
-      setSessionCategory(+process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID);
+      setSessionTypeCategoryId(
+        +process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID
+      );
     }
     setGroupId(page);
   }, []);
@@ -177,6 +180,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                       rooms={grids[groupId].rooms}
                       speakers={speakers}
                       selectSession={selectSession}
+                      sessionTypeCategoryId={sessionTypeCategoryId}
                     />
                   </Fragment>
                 ))}
@@ -190,7 +194,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
                 setSelectedSession(undefined);
                 router.push(createHash({ sessionId: "" }));
               }}
-              sessionCategory={sessionCategory}
+              sessionTypeCategoryId={sessionTypeCategoryId}
             />
           </div>
         </>
