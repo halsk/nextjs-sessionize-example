@@ -32,7 +32,7 @@ const SessionTime: React.FC<Props> = ({ room, ...rest }) => {
       )}
 
       <p
-        className={`text-sm mx-2 my-1 ${
+        className={`text-sm my-1 ${
           isPlenumSession(room.session!) ? "md:text-center" : ""
         } ${rest.className || ""}`}
       >
