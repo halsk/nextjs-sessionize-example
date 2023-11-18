@@ -27,7 +27,7 @@ export const SessionDetail: React.FC<Props> = ({
             {session?.title}
           </Dialog.Title>
           <div className="mt-2">
-            <p className="text-sm text-gray-500 text-left">
+            <p className="text-sm text-gray-500 text-left whitespace-pre-line">
               {session?.description}
             </p>
             <SessionCategories
