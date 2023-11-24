@@ -1,7 +1,4 @@
 import { FullSpeaker } from "@/sessionize/sessionizeApi";
-import NoImage from "@/app/assets/images/noimage.png";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
   speaker: FullSpeaker;
