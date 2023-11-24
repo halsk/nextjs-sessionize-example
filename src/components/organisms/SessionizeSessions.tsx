@@ -133,11 +133,11 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               }
             }
           `}</style>
-          <div className="grid-template mt-2">
+          <div className="grid-template mt-2 justify-center">
             {/* show room name */}
             {grids[groupId].rooms.map((room, index) => (
               <span
-                className="hidden md:flex m-1 p-2 bg-gray-100 items-end sticky top-0 opacity-80 z-10 "
+                className="hidden md:flex m-1 p-2 bg-gray-200 items-end sticky top-0 opacity-80 z-10 justify-center"
                 style={{ gridRow: "tracks", gridColumn: `track-${room.id}` }}
                 key={`room-${index}`}
               >
