@@ -30,7 +30,9 @@ export const SpeakerCard: React.FC<Props> = ({ speaker }) => {
             {speaker.tagLine}
           </p>
         )}
-        <p className="text-gray-500 text-sm mt-2">{speaker.bio}</p>
+        <p className="text-gray-500 text-sm mt-2 whitespace-pre-line">
+          {speaker.bio}
+        </p>
       </div>
     </div>
   );
