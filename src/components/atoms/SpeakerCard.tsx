@@ -4,6 +4,7 @@ type Props = {
   speaker: FullSpeaker;
 };
 import Image from "next/image";
+import { SocialLink } from "./SocialLink";
 
 export const SpeakerCard: React.FC<Props> = ({ speaker }) => {
   return (
@@ -28,6 +29,13 @@ export const SpeakerCard: React.FC<Props> = ({ speaker }) => {
             speaker.questionAnswers[0].answer != null &&
             `(${speaker.questionAnswers[0].answer})`}
         </h3>
+        {speaker.links &&
+          speaker.links.length > 0 &&
+          speaker.links.find((link) => link.linkType === "Twitter") && (
+            <SocialLink
+              link={speaker.links.find((link) => link.linkType === "Twitter")!}
+            />
+          )}
         {speaker.tagLine && (
           <p className="text-gray-700 text-sm bg-highlight p-1 inline">
             {speaker.tagLine}
