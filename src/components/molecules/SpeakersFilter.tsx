@@ -12,9 +12,9 @@ export const SpeakersFilter: React.FC<Props> = ({
   showSpeakerDetail,
   ...rest
 }) => {
-  const selectedSpeakers = speakerslist.filter((speaker) =>
-    speakers.find((s) => s.id === speaker.id)
-  );
+  const selectedSpeakers = speakers.map((speaker) => {
+    return speakerslist.find((s) => s.id === speaker.id);
+  });
   if (speakerslist === undefined) return null;
   return (
     <Speakers

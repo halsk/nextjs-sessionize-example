@@ -49,7 +49,6 @@ export const useSessionizeSpeakers = (id: string) => {
       // fetch data from sessionize
       const _speakers = await fetchSessionizeSpeakers(id);
       setSpeakers(_speakers);
-      console.log(_speakers)
       setLoading(false);
     } catch (error) {
       // if error is instance of Error

@@ -1,3 +1,5 @@
+import { debug } from "@/libs/util";
+
 export interface SessionGrid {
   date: Date,
   isDefault: boolean;
@@ -102,7 +104,7 @@ export const fetchSessionizeGrids = async (id: string) => {
     throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
   }
   const data = await response.json();
-  console.log(data)
+  debug(data)
   const parsed = data.map((grid: SessionGrid) => {
     grid.date = new Date(grid.date);
     grid.rooms = grid.rooms.map((room: Room) => {
@@ -137,6 +139,6 @@ export const fetchSessionizeSpeakers = async (id: string) => {
     throw new Error(`Error occurred by getting Sessionize data: ${response.statusText}`);
   }
   const data = await response.json();
-  console.log(data)
+  debug(data)
   return data as FullSpeaker[];
 };

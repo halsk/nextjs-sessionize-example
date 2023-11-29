@@ -1,8 +1,9 @@
 import { FullSpeaker } from "@/sessionize/sessionizeApi";
 import { SpeakerCard } from "../atoms/SpeakerCard";
+import { Fragment } from "react";
 
 type Props = {
-  speakers: FullSpeaker[];
+  speakers: (FullSpeaker | undefined)[];
   showSpeakerDetail?: boolean;
   [key: string]: any; // This line allows any additional properties
 };
@@ -19,9 +20,16 @@ export const Speakers: React.FC<Props> = ({
         }`}
       >
         {speakers.map((speaker, index) => (
-          <div key={speaker.id}>
-            {(index ? "," : "") + speaker.lastName + " " + speaker.firstName}
-          </div>
+          <Fragment key={`speaker-${index}`}>
+            {speaker && (
+              <div key={speaker.id}>
+                {(index ? "," : "") +
+                  speaker.lastName +
+                  " " +
+                  speaker.firstName}
+              </div>
+            )}
+          </Fragment>
         ))}
       </div>
     );
@@ -29,7 +37,9 @@ export const Speakers: React.FC<Props> = ({
     return (
       <div className={`md:grid my-2 w-full ${rest.className || ""}`}>
         {speakers.map((speaker, index) => (
-          <SpeakerCard key={speaker.id} speaker={speaker} />
+          <Fragment key={`speaker-${index}`}>
+            {speaker && <SpeakerCard key={speaker.id} speaker={speaker} />}
+          </Fragment>
         ))}
       </div>
     );

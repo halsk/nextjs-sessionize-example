@@ -5,6 +5,8 @@ type hashParam = {
   page?: number,
   sessionId?: string
 }
+export const debug = (process.env.NODE_ENV === 'development') ? console.log.bind(console) : () => { };
+
 export const parseWindowHash = () => {
   const hash = window.location.hash
     ? window.location.hash.replace("#", "")
