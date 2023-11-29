@@ -23,7 +23,10 @@ export const SpeakerCard: React.FC<Props> = ({ speaker }) => {
       />
       <div className="ml-4">
         <h3 className="text-base leading-6 font-bold text-gray-900">
-          {speaker.lastName} {speaker.firstName}
+          {speaker.lastName} {speaker.firstName}{" "}
+          {speaker.questionAnswers[0] &&
+            speaker.questionAnswers[0].answer != null &&
+            `(${speaker.questionAnswers[0].answer})`}
         </h3>
         {speaker.tagLine && (
           <p className="text-gray-700 text-sm bg-highlight p-1 inline">
