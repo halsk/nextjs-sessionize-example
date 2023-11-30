@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     site: "@dekaigi",
     creator: "@dekaigi",
   },
+  other: {
+    ["fb:app_id"]: "587135371878544",
+  },
 };
 
 export default function RootLayout({
