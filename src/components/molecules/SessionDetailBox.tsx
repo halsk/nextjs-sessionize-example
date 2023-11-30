@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Session, FullSpeaker } from "@/sessionize/sessionizeApi";
 import { SessionDetail } from "../atoms/SessionDetail";
+
 type Props = {
   session?: Session;
   speakerlist: FullSpeaker[];
