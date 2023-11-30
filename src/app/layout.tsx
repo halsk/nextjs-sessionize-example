@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     siteName: "デッカイギ 2024 スケジュール",
     locale: "ja_JP",
     type: "website",
+    images: "https://program.dekaigi.org/images/ogp.png",
   },
   twitter: {
     card: "summary_large_image",
