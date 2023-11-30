@@ -23,9 +23,6 @@ export const metadata: Metadata = {
     site: "@dekaigi",
     creator: "@dekaigi",
   },
-  other: {
-    ["fb:app_id"]: "587135371878544",
-  },
 };
 
 export default function RootLayout({
@@ -34,7 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
+      <head>
+        <meta property="fb:app_id" content="587135371878544" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
