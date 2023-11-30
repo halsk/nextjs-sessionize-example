@@ -3,6 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { SpeakersFilter } from "../molecules/SpeakersFilter";
 import { ShareButtons } from "../molecules/ShareButtons";
 import { SessionCategories } from "./SessionCategories";
+import { createHash } from "@/libs/util";
 
 type Props = {
   session: Session;
@@ -35,7 +36,16 @@ export const SessionDetail: React.FC<Props> = ({
               categories={session.categories}
               ignoreCategories={ignoreCategories}
             />
-            <ShareButtons title={session.title} url={window.location.href} />
+            <ShareButtons
+              title={session.title}
+              url={`${window.location.protocol}//${window.location.hostname}${
+                window.location.port !== "80" && window.location.port !== "443"
+                  ? `:${window.location.port}`
+                  : ""
+              }${createHash({
+                sessionId: session.id,
+              })}`}
+            />
             <h3 className="mt-4 text-base font-semibold text-gray-900 text-left">
               スピーカー
             </h3>
