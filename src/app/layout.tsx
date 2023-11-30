@@ -7,6 +7,21 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "デッカイギ 2024 スケジュール",
   description: "デッカイギ 2024 のスケジュールです",
+  openGraph: {
+    title: "デッカイギ 2024 スケジュール",
+    description: "デッカイギ 2024 のスケジュールです",
+    url: "https://program.dekaigi.org/",
+    siteName: "デッカイギ 2024 スケジュール",
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "デッカイギ 2024 スケジュール",
+    description: "デッカイギ 2024 のスケジュールです",
+    site: "@dekaigi",
+    creator: "@dekaigi",
+  },
 };
 
 export default function RootLayout({
