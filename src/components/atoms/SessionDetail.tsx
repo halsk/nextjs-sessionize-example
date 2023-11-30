@@ -39,9 +39,7 @@ export const SessionDetail: React.FC<Props> = ({
             <ShareButtons
               title={session.title}
               url={`${window.location.protocol}//${window.location.hostname}${
-                window.location.port !== "80" && window.location.port !== "443"
-                  ? `:${window.location.port}`
-                  : ""
+                window.location.port !== "" ? `:${window.location.port}` : ""
               }${createHash({
                 sessionId: session.id,
               })}`}
