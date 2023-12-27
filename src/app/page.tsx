@@ -13,6 +13,8 @@ export default function Home() {
             alt="デッカイギロゴ"
             width={170}
             height={35}
+            priority={true}
+            style={{ width: "auto" }}
           />
         </Link>
         <BocchimeshiButton />
