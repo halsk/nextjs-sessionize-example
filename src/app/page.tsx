@@ -6,17 +6,17 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="container mx-auto">
-      <Link href="https://dekaigi.org/">
-        <div className="flex p-5 justify-between">
+      <div className="flex p-5 justify-between">
+        <Link href="https://dekaigi.org/">
           <Image
             src="/images/logo_dekkaigi_black.png"
             alt="デッカイギロゴ"
             width={170}
             height={35}
           />
-          <BocchimeshiButton />
-        </div>
-      </Link>
+        </Link>
+        <BocchimeshiButton />
+      </div>
       {process.env.NEXT_PUBLIC_SESSIONIZE_ID ? (
         <SessionizeSessions id={process.env.NEXT_PUBLIC_SESSIONIZE_ID!} />
       ) : (
