@@ -32,6 +32,19 @@ export const SessionDetail: React.FC<Props> = ({
             <p className="text-sm text-gray-500 text-left whitespace-pre-line">
               {session?.description}
             </p>
+            <div className="flex flex-wrap text-gray-100 my-2 space-x-2 text-sm">
+            {session?.liveUrl && (
+              <div className="bg-green-600 px-1 rounded-md mt-1">
+                <a
+                  href={session?.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Slido</span> 
+                </a>
+              </div>
+            )}
+            </div>
             <SessionCategories
               categories={session.categories}
               ignoreCategories={ignoreCategories}
