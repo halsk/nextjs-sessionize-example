@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "デッカイギ 2024 スケジュール",
     description: "デッカイギ 2024 のスケジュールです",
-    url: "https://program.dekaigi.org/",
+    url: "https://program2024.dekaigi.org/",
     siteName: "デッカイギ 2024 スケジュール",
     locale: "ja_JP",
     type: "website",
-    images: "https://program.dekaigi.org/images/ogp.png",
+    images: "https://program2024.dekaigi.org/images/ogp.png",
   },
   twitter: {
     card: "summary_large_image",
