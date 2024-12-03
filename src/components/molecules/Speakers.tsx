@@ -24,9 +24,9 @@ export const Speakers: React.FC<Props> = ({
             {speaker && (
               <div key={speaker.id}>
                 {(index ? "," : "") +
-                  speaker.lastName +
+                  speaker.lastName || "" +
                   " " +
-                  speaker.firstName}
+                  speaker.firstName || ""}
               </div>
             )}
           </Fragment>
