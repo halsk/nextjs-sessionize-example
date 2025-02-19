@@ -1,6 +1,6 @@
-# A NextJS template for displaying Sessionize contetnt from their API.
+# A NextJS template for displaying Sessionize content from their API.
 
-I created this template because I wanted to customize Sessionize sessions.
+I created this template because I wanted to customize Sessionize sessions. This template helps conference organizers display their Sessionize-managed content in a customized way.
 To use this template, you have to enable Sessionize API and add your Sessionize ID on `.env.local` from the API settings.
 
 ## Getting Started
