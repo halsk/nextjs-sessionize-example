@@ -8,7 +8,7 @@ export const SessionType: React.FC<{
     <>
       {!session.isServiceSession && (
         <span
-          className={`text-sm text-primary bg-sky-200 rounded-sm p-1 mr-1 ${
+          className={`text-sm text-primary bg-sky-200 rounded-xs p-1 mr-1 ${
             !session.isPlenumSession && ""
           }`}
         >

@@ -3,7 +3,7 @@ import {
   useSessionizeGrids,
   useSessionizeSpeakers,
 } from "@/hooks/useSessionizeData";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useMemo } from "react";
 import { format, addMinutes, isBefore, isAfter } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Session, SessionGrid, TimeSlot } from "@/sessionize/sessionizeApi";
@@ -17,6 +17,11 @@ import SessionCard from "../molecules/SessionCard";
 import GridSelector from "../molecules/GridSelector";
 import SessionDetail from "../molecules/SessionDetailBox";
 
+const SESSION_TYPE_CATEGORY_ID = process.env
+  .NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID
+  ? +process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID
+  : undefined;
+
 // props of session ID
 type Props = {
   id: string;
@@ -24,31 +29,25 @@ type Props = {
 
 const SessionizeSessions: React.FC<Props> = ({ id }) => {
   const router = useRouter();
-  const [groupId, setGroupId] = React.useState(1);
-  const [selectedSession, setSelectedSession] = React.useState<
-    Session | undefined
-  >();
-  const [sessionTypeCategoryId, setSessionTypeCategoryId] =
-    React.useState<number>();
-  // get hash from URL
-  useEffect(() => {
-    const { page, sessionId } = parseWindowHash();
-    // if session ID is specified, set session ID to ignore category
-    if (process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID) {
-      setSessionTypeCategoryId(
-        +process.env.NEXT_PUBLIC_SESSIONTYPE_CATEGORY_ID
-      );
-    }
-    setGroupId(page);
-  }, []);
+  // The initial state comes from the URL hash. During SSR there is no window,
+  // but nothing depending on it is rendered until the data has been loaded.
+  const [groupId, setGroupId] = React.useState(() =>
+    typeof window === "undefined" ? 0 : parseWindowHash().page
+  );
+  const [selectedSessionId, setSelectedSessionId] = React.useState<
+    string | undefined
+  >(() =>
+    typeof window === "undefined" ? undefined : parseWindowHash().sessionId
+  );
+  const sessionTypeCategoryId = SESSION_TYPE_CATEGORY_ID;
   const selectSession = (session: Session) => {
-    setSelectedSession(session);
+    setSelectedSessionId(session.id);
     router.push(createHash({ sessionId: session.id }));
   };
   // change hash and URL
   const changeDate = (index: number) => () => {
     setGroupId(index);
-    router.push(createHash({ page: index, sessionId: selectedSession?.id }));
+    router.push(createHash({ page: index, sessionId: selectedSessionId }));
   };
   // calculate grid template rows
   const calculateTemplateRows = (grid: SessionGrid) => {
@@ -95,29 +94,18 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
     return Math.round(diff / 5);
   };
   const { grids, isLoading, error } = useSessionizeGrids(id);
-  const {
-    speakers,
-    isLoading: isSpeakerLoading,
-    error: errorSpeakerLoaging,
-  } = useSessionizeSpeakers(id);
-  useEffect(() => {
-    if (grids.length == 0) return;
-    const { sessionId } = parseWindowHash();
-    if (sessionId) {
-      const session = grids[groupId].timeSlots
-        .map((timeSlot) => timeSlot.rooms.map((room) => room.session))
-        .flat()
-        .find((session) => session?.id === sessionId);
-      if (session) {
-        setSelectedSession(session);
-      }
-    }
-  }, [grids, groupId]);
+  const { speakers } = useSessionizeSpeakers(id);
+  const selectedSession = useMemo(() => {
+    if (!selectedSessionId || !grids[groupId]) return undefined;
+    return grids[groupId].timeSlots
+      .flatMap((timeSlot) => timeSlot.rooms.map((room) => room.session))
+      .find((session) => session?.id === selectedSessionId);
+  }, [grids, groupId, selectedSessionId]);
   return (
     <div className="schedule px-4 md:px-16">
       {error && <p>{error}</p>}
       {isLoading && <p className="text-center m-4">Loading...</p>}
-      {!isLoading && (
+      {!isLoading && !error && grids[groupId] && (
         <>
           <GridSelector
             grids={grids}
@@ -191,7 +179,7 @@ const SessionizeSessions: React.FC<Props> = ({ id }) => {
               speakerlist={speakers}
               showSpeakerDetail={true}
               closeWindow={() => {
-                setSelectedSession(undefined);
+                setSelectedSessionId(undefined);
                 router.push(createHash({ sessionId: "" }));
               }}
               sessionTypeCategoryId={sessionTypeCategoryId}

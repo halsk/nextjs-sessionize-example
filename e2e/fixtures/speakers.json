@@ -1,0 +1,46 @@
+[
+  {
+    "id": "spk-1",
+    "firstName": "太郎",
+    "lastName": "テスト",
+    "fullName": "太郎 テスト",
+    "bio": "テスト太郎のプロフィールです。",
+    "tagLine": "テスト株式会社",
+    "profilePicture": null,
+    "sessions": [
+      {
+        "id": 1,
+        "name": "テストセッション1"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [
+      {
+        "title": "X (Twitter)",
+        "url": "https://x.com/example_taro",
+        "linkType": "Twitter"
+      }
+    ],
+    "questionAnswers": [],
+    "categories": []
+  },
+  {
+    "id": "spk-2",
+    "firstName": "花子",
+    "lastName": "サンプル",
+    "fullName": "花子 サンプル",
+    "bio": "サンプル花子のプロフィールです。",
+    "tagLine": "サンプル市役所",
+    "profilePicture": null,
+    "sessions": [
+      {
+        "id": 2,
+        "name": "テストセッション2"
+      }
+    ],
+    "isTopSpeaker": false,
+    "links": [],
+    "questionAnswers": [],
+    "categories": []
+  }
+]
