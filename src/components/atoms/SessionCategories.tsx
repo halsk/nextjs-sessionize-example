@@ -6,7 +6,7 @@ export const SessionCategories: React.FC<{
 }> = ({ categories, ignoreCategories = [] }) => {
   return (
     <div className="flex flex-wrap text-gray-100 my-2 space-x-2 text-sm">
-      {categories.map((category, index) => {
+      {categories.map((category) => {
         if (!ignoreCategories.includes(category.id))
           return (
             <div

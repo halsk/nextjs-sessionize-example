@@ -1,5 +1,5 @@
 import { FullSpeaker, Session } from "@/sessionize/sessionizeApi";
-import { Dialog } from "@headlessui/react";
+import { DialogTitle } from "@headlessui/react";
 import { SpeakersFilter } from "../molecules/SpeakersFilter";
 import { ShareButtons } from "../molecules/ShareButtons";
 import { SessionCategories } from "./SessionCategories";
@@ -22,12 +22,12 @@ export const SessionDetail: React.FC<Props> = ({
     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
       <div className="sm:flex sm:items-start">
         <div className="mt-3 sm:ml-4 sm:mt-0 sm:text-left">
-          <Dialog.Title
+          <DialogTitle
             as="h3"
             className="text-lg font-semibold leading-6 text-gray-900 text-left"
           >
             {session?.title}
-          </Dialog.Title>
+          </DialogTitle>
           <div className="mt-2">
             <p className="text-sm text-gray-500 text-left whitespace-pre-line">
               {session?.description}

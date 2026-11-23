@@ -1,5 +1,5 @@
 import { calcSessionMinutes } from "@/libs/util";
-import { Room, Session } from "@/sessionize/sessionizeApi";
+import { Room } from "@/sessionize/sessionizeApi";
 import { format } from "date-fns";
 import { SessionType } from "./SessionType";
 
@@ -7,37 +7,32 @@ import { SessionType } from "./SessionType";
 type Props = {
   room: Room;
   sessionTypeCategoryId?: number;
-  [key: string]: any; // This line allows any additional properties
+  className?: string;
 };
 const SessionTime: React.FC<Props> = ({
   room,
   sessionTypeCategoryId,
-  ...rest
+  className,
 }) => {
-  const isPlenumSession = (session: Session) => {
-    return room.session!.isPlenumSession;
-  };
-  const isServiceSession = (session: Session) => {
-    return room.session!.isServiceSession;
-  };
-  if (room.session === undefined) return null;
+  const session = room.session;
+  if (session === undefined) return null;
   return (
     <div
       className={`flex flex-wrap mx-2 ${
-        isPlenumSession(room.session) && "md:justify-center"
+        session.isPlenumSession && "md:justify-center"
       }`}
     >
       {sessionTypeCategoryId && (
         <SessionType
           sessionTypeCategoryId={sessionTypeCategoryId}
-          session={room.session}
+          session={session}
         />
       )}
-      {!isServiceSession(room.session) && (
+      {!session.isServiceSession && (
         <div
           className={`block ${
-            !isPlenumSession(room.session) ? "md:hidden" : ""
-          }  p-1 bg-slate-200 text-black text-sm rounded-sm`}
+            !session.isPlenumSession ? "md:hidden" : ""
+          }  p-1 bg-slate-200 text-black text-sm rounded-xs`}
         >
           {room.name}
         </div>
@@ -45,11 +40,11 @@ const SessionTime: React.FC<Props> = ({
 
       <p
         className={`text-sm my-1 ${
-          isPlenumSession(room.session!) ? "md:text-center" : ""
-        } ${rest.className || ""}`}
+          session.isPlenumSession ? "md:text-center" : ""
+        } ${className || ""}`}
       >
-        {format(room.session!.startsAt, "HH:mm")}〜
-        {calcSessionMinutes(room.session!)}分
+        {format(session.startsAt, "HH:mm")}〜
+        {calcSessionMinutes(session)}分
       </p>
     </div>
   );

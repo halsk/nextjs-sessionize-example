@@ -4,13 +4,13 @@ type Props = {
   speakerslist: FullSpeaker[];
   speakers: Speaker[];
   showSpeakerDetail?: boolean;
-  [key: string]: any; // This line allows any additional properties
+  className?: string;
 };
 export const SpeakersFilter: React.FC<Props> = ({
   speakerslist,
   speakers,
   showSpeakerDetail,
-  ...rest
+  className,
 }) => {
   const selectedSpeakers = speakers.map((speaker) => {
     return speakerslist.find((s) => s.id === speaker.id);
@@ -19,7 +19,7 @@ export const SpeakersFilter: React.FC<Props> = ({
   return (
     <Speakers
       speakers={selectedSpeakers}
-      className={`${rest.className || ""}`}
+      className={`${className || ""}`}
       showSpeakerDetail={showSpeakerDetail}
     />
   );

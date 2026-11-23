@@ -2,18 +2,18 @@ import { Session } from "@/sessionize/sessionizeApi";
 type Props = {
   session: Session;
   selectSession: (session: Session) => void;
-  [key: string]: any; // This line allows any additional properties
+  className?: string;
 };
 export const SessionTitle: React.FC<Props> = ({
   session,
   selectSession,
-  ...rest
+  className,
 }) => {
   return (
     <div
       className={`text-lg font-bold mx-2 my-1 ${
         session.isPlenumSession && "md:text-center"
-      } ${rest.className || ""}`}
+      } ${className || ""}`}
     >
       {session.isServiceSession ? (
         <p> {session.title}</p>

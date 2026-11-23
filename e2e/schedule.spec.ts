@@ -35,6 +35,13 @@ test.describe("スケジュールページ", () => {
     await expect(page.getByText("二日目のセッション")).toHaveCount(0);
   });
 
+  test("no-underline 指定のリンクには下線が付かない", async ({ page }) => {
+    // グローバルの a { underline } がユーティリティクラスを上書きしないこと
+    await page.goto("/");
+    const tab = page.getByRole("link", { name: "1月11日" });
+    await expect(tab).toHaveCSS("text-decoration-line", "none");
+  });
+
   test("日付タブで2日目に切り替えられる", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "1月11日" }).click();

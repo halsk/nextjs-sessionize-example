@@ -1,10 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-body {
-  @apply bg-gray-100;
+@theme {
+  --color-primary: #041e42;
+  --color-secondary: #003877;
+  --color-highlight: #ced7e4;
 }
-a {
-  @apply cursor-pointer underline hover:text-blue-600;
+
+/*
+ * Global element styles live in the base layer so that utility classes
+ * (e.g. no-underline) can still override them, as in Tailwind v3.
+ */
+@layer base {
+  /* Keep Tailwind v3 behaviour: buttons show a pointer cursor */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  body {
+    @apply bg-gray-100;
+  }
+  a {
+    @apply cursor-pointer underline hover:text-blue-600;
+  }
 }
