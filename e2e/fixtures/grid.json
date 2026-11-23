@@ -1,0 +1,356 @@
+[
+  {
+    "date": "2025-01-10T00:00:00",
+    "isDefault": false,
+    "rooms": [
+      {
+        "id": 101,
+        "name": "ホールA",
+        "sessions": [
+          {
+            "id": "s-open",
+            "title": "オープニング",
+            "description": null,
+            "startsAt": "2025-01-10T10:00:00",
+            "endsAt": "2025-01-10T10:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": true,
+            "speakers": [],
+            "categories": [],
+            "roomId": 101,
+            "room": "ホールA",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted"
+          },
+          {
+            "id": "s-1",
+            "title": "テストセッション1",
+            "description": "セッション1の説明文です。",
+            "startsAt": "2025-01-10T10:30:00",
+            "endsAt": "2025-01-10T11:30:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "spk-1",
+                "name": "太郎 テスト"
+              }
+            ],
+            "categories": [
+              {
+                "id": 90001,
+                "name": "セッション種別",
+                "categoryItems": [
+                  {
+                    "id": 1,
+                    "name": "講演"
+                  }
+                ],
+                "sort": 1
+              }
+            ],
+            "roomId": 101,
+            "room": "ホールA",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 102,
+        "name": "ルームB",
+        "sessions": [
+          {
+            "id": "s-2",
+            "title": "テストセッション2",
+            "description": "セッション2の説明文です。",
+            "startsAt": "2025-01-10T10:30:00",
+            "endsAt": "2025-01-10T11:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "spk-2",
+                "name": "花子 サンプル"
+              }
+            ],
+            "categories": [
+              {
+                "id": 90001,
+                "name": "セッション種別",
+                "categoryItems": [
+                  {
+                    "id": 1,
+                    "name": "ワークショップ"
+                  }
+                ],
+                "sort": 1
+              }
+            ],
+            "roomId": 102,
+            "room": "ルームB",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      }
+    ],
+    "timeSlots": [
+      {
+        "slotStart": "10:00:00",
+        "rooms": [
+          {
+            "id": 101,
+            "name": "ホールA",
+            "session": {
+              "id": "s-open",
+              "title": "オープニング",
+              "description": null,
+              "startsAt": "2025-01-10T10:00:00",
+              "endsAt": "2025-01-10T10:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": true,
+              "speakers": [],
+              "categories": [],
+              "roomId": 101,
+              "room": "ホールA",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted"
+            },
+            "index": 0
+          }
+        ]
+      },
+      {
+        "slotStart": "10:30:00",
+        "rooms": [
+          {
+            "id": 101,
+            "name": "ホールA",
+            "session": {
+              "id": "s-1",
+              "title": "テストセッション1",
+              "description": "セッション1の説明文です。",
+              "startsAt": "2025-01-10T10:30:00",
+              "endsAt": "2025-01-10T11:30:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "spk-1",
+                  "name": "太郎 テスト"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 90001,
+                  "name": "セッション種別",
+                  "categoryItems": [
+                    {
+                      "id": 1,
+                      "name": "講演"
+                    }
+                  ],
+                  "sort": 1
+                }
+              ],
+              "roomId": 101,
+              "room": "ホールA",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted"
+            },
+            "index": 0
+          },
+          {
+            "id": 102,
+            "name": "ルームB",
+            "session": {
+              "id": "s-2",
+              "title": "テストセッション2",
+              "description": "セッション2の説明文です。",
+              "startsAt": "2025-01-10T10:30:00",
+              "endsAt": "2025-01-10T11:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "spk-2",
+                  "name": "花子 サンプル"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 90001,
+                  "name": "セッション種別",
+                  "categoryItems": [
+                    {
+                      "id": 1,
+                      "name": "ワークショップ"
+                    }
+                  ],
+                  "sort": 1
+                }
+              ],
+              "roomId": 102,
+              "room": "ルームB",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted"
+            },
+            "index": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2025-01-11T00:00:00",
+    "isDefault": false,
+    "rooms": [
+      {
+        "id": 101,
+        "name": "ホールA",
+        "sessions": [
+          {
+            "id": "s-3",
+            "title": "二日目のセッション",
+            "description": null,
+            "startsAt": "2025-01-11T10:00:00",
+            "endsAt": "2025-01-11T11:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "spk-1",
+                "name": "太郎 テスト"
+              },
+              {
+                "id": "spk-2",
+                "name": "花子 サンプル"
+              }
+            ],
+            "categories": [
+              {
+                "id": 90001,
+                "name": "セッション種別",
+                "categoryItems": [
+                  {
+                    "id": 1,
+                    "name": "パネルディスカッション"
+                  }
+                ],
+                "sort": 1
+              }
+            ],
+            "roomId": 101,
+            "room": "ホールA",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted"
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      },
+      {
+        "id": 102,
+        "name": "ルームB",
+        "sessions": [
+          {
+            "id": "s-4",
+            "title": "休憩",
+            "description": null,
+            "startsAt": "2025-01-11T10:00:00",
+            "endsAt": "2025-01-11T10:30:00",
+            "isServiceSession": true,
+            "isPlenumSession": false,
+            "speakers": [],
+            "categories": [],
+            "roomId": 102,
+            "room": "ルームB",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": null
+          }
+        ],
+        "hasOnlyPlenumSessions": false
+      }
+    ],
+    "timeSlots": [
+      {
+        "slotStart": "10:00:00",
+        "rooms": [
+          {
+            "id": 101,
+            "name": "ホールA",
+            "session": {
+              "id": "s-3",
+              "title": "二日目のセッション",
+              "description": null,
+              "startsAt": "2025-01-11T10:00:00",
+              "endsAt": "2025-01-11T11:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "spk-1",
+                  "name": "太郎 テスト"
+                },
+                {
+                  "id": "spk-2",
+                  "name": "花子 サンプル"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 90001,
+                  "name": "セッション種別",
+                  "categoryItems": [
+                    {
+                      "id": 1,
+                      "name": "パネルディスカッション"
+                    }
+                  ],
+                  "sort": 1
+                }
+              ],
+              "roomId": 101,
+              "room": "ホールA",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted"
+            },
+            "index": 0
+          },
+          {
+            "id": 102,
+            "name": "ルームB",
+            "session": {
+              "id": "s-4",
+              "title": "休憩",
+              "description": null,
+              "startsAt": "2025-01-11T10:00:00",
+              "endsAt": "2025-01-11T10:30:00",
+              "isServiceSession": true,
+              "isPlenumSession": false,
+              "speakers": [],
+              "categories": [],
+              "roomId": 102,
+              "room": "ルームB",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": null
+            },
+            "index": 1
+          }
+        ]
+      }
+    ]
+  }
+]
