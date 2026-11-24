@@ -83,6 +83,19 @@ test.describe("スケジュールページ", () => {
     await expect(dialog.getByText("サンプル市役所")).toBeVisible();
   });
 
+  test("カテゴリの選択肢が空のセッションがあってもページが表示される", async ({ page }) => {
+    // Sessionize では、カテゴリの値が未選択だと categoryItems が空配列になる
+    await page.goto("/#1");
+    await expect(page.getByText("種別未設定のセッション")).toBeVisible();
+    await expect(page.getByText("二日目のセッション")).toBeVisible();
+
+    await page.getByText("種別未設定のセッション").click();
+    const dialog = page.getByRole("dialog", { name: "種別未設定のセッション" });
+    await expect(dialog.getByText("種別がまだ決まっていないセッションです。")).toBeVisible();
+    // 値のないカテゴリはラベルを出さない
+    await expect(dialog.getByText(/録画:/)).toHaveCount(0);
+  });
+
   test("サービスセッションはクリックできない", async ({ page }) => {
     await page.goto("/#1");
     await page.getByText("休憩").click();

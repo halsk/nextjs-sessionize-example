@@ -277,6 +277,40 @@
             "liveUrl": null,
             "recordingUrl": null,
             "status": null
+          },
+          {
+            "id": "s-5",
+            "title": "種別未設定のセッション",
+            "description": "種別がまだ決まっていないセッションです。",
+            "startsAt": "2025-01-11T10:30:00",
+            "endsAt": "2025-01-11T11:00:00",
+            "isServiceSession": false,
+            "isPlenumSession": false,
+            "speakers": [
+              {
+                "id": "spk-2",
+                "name": "花子 サンプル"
+              }
+            ],
+            "categories": [
+              {
+                "id": 90001,
+                "name": "セッション種別",
+                "categoryItems": [],
+                "sort": 1
+              },
+              {
+                "id": 90002,
+                "name": "録画",
+                "categoryItems": [],
+                "sort": 2
+              }
+            ],
+            "roomId": 102,
+            "room": "ルームB",
+            "liveUrl": null,
+            "recordingUrl": null,
+            "status": "Accepted"
           }
         ],
         "hasOnlyPlenumSessions": false
@@ -348,6 +382,50 @@
               "status": null
             },
             "index": 1
+          }
+        ]
+      },
+      {
+        "slotStart": "10:30:00",
+        "rooms": [
+          {
+            "id": 102,
+            "name": "ルームB",
+            "session": {
+              "id": "s-5",
+              "title": "種別未設定のセッション",
+              "description": "種別がまだ決まっていないセッションです。",
+              "startsAt": "2025-01-11T10:30:00",
+              "endsAt": "2025-01-11T11:00:00",
+              "isServiceSession": false,
+              "isPlenumSession": false,
+              "speakers": [
+                {
+                  "id": "spk-2",
+                  "name": "花子 サンプル"
+                }
+              ],
+              "categories": [
+                {
+                  "id": 90001,
+                  "name": "セッション種別",
+                  "categoryItems": [],
+                  "sort": 1
+                },
+                {
+                  "id": 90002,
+                  "name": "録画",
+                  "categoryItems": [],
+                  "sort": 2
+                }
+              ],
+              "roomId": 102,
+              "room": "ルームB",
+              "liveUrl": null,
+              "recordingUrl": null,
+              "status": "Accepted"
+            },
+            "index": 0
           }
         ]
       }
