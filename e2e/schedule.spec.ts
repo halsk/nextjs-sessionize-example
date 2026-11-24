@@ -8,12 +8,38 @@ test.describe("スケジュールページ", () => {
 
   test("ページタイトルとヘッダーが表示される", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle("デッカイギ 2025 スケジュール");
+    await expect(page).toHaveTitle("デッカイギ2027 スケジュール");
     await expect(page.getByAltText("デッカイギロゴ")).toBeVisible();
     const bocchi = page.getByRole("link", { name: /ぼっち飯対策企画/ });
     await expect(bocchi).toBeVisible();
     await expect(bocchi).toHaveAttribute("href", /docs\.google\.com\/spreadsheets/);
     await expect(bocchi).toHaveAttribute("target", "_blank");
+  });
+
+  test("2027 年の OGP / Twitter カードが設定されている", async ({ page }) => {
+    await page.goto("/");
+    const meta = (selector: string) =>
+      page.locator(selector).first().getAttribute("content");
+    expect(await meta('meta[property="og:title"]')).toBe("デッカイギ2027 スケジュール");
+    expect(await meta('meta[property="og:site_name"]')).toBe("デッカイギ2027 スケジュール");
+    expect(await meta('meta[name="description"]')).toContain("2027年1月8日（金）・9日（土）");
+    expect(await meta('meta[property="og:description"]')).toContain("羽田イノベーションシティ");
+    expect(await meta('meta[property="og:url"]')).toBe("https://program.dekaigi.org/");
+    expect(await meta('meta[property="og:image"]')).toBe("https://program.dekaigi.org/images/ogp.png");
+    expect(await meta('meta[property="og:image:width"]')).toBe("1200");
+    expect(await meta('meta[property="og:image:height"]')).toBe("630");
+    expect(await meta('meta[name="twitter:card"]')).toBe("summary_large_image");
+    expect(await meta('meta[name="twitter:title"]')).toBe("デッカイギ2027 スケジュール");
+    expect(await meta('meta[name="twitter:image"]')).toBe("https://program.dekaigi.org/images/ogp.png");
+  });
+
+  test("OGP 画像が 1200x630 で配信されている", async ({ request }) => {
+    const res = await request.get("/images/ogp.png");
+    expect(res.ok()).toBe(true);
+    const png = await res.body();
+    // PNG の IHDR から幅と高さを読む
+    expect(png.readUInt32BE(16)).toBe(1200);
+    expect(png.readUInt32BE(20)).toBe(630);
   });
 
   test("1日目のタイムテーブルが表示される", async ({ page }) => {
