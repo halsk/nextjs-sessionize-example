@@ -10,10 +10,8 @@ test.describe("スケジュールページ", () => {
     await page.goto("/");
     await expect(page).toHaveTitle("デッカイギ2027 スケジュール");
     await expect(page.getByAltText("デッカイギロゴ")).toBeVisible();
-    const bocchi = page.getByRole("link", { name: /ぼっち飯対策企画/ });
-    await expect(bocchi).toBeVisible();
-    await expect(bocchi).toHaveAttribute("href", /docs\.google\.com\/spreadsheets/);
-    await expect(bocchi).toHaveAttribute("target", "_blank");
+    // 2027 のぼっち飯企画のリンクが準備できるまでボタンは表示しない
+    await expect(page.getByRole("link", { name: /ぼっち飯対策企画/ })).toHaveCount(0);
   });
 
   test("2027 年の OGP / Twitter カードが設定されている", async ({ page }) => {

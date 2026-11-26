@@ -1,4 +1,5 @@
-import { BocchimeshiButton } from "@/components/atoms/BocchimeshiButton";
+// TODO: 2027 のぼっち飯企画のリンクが準備できたら復活させる
+// import { BocchimeshiButton } from "@/components/atoms/BocchimeshiButton";
 import SessionizeSessions from "@/components/organisms/SessionizeSessions";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ export default function Home() {
             style={{ width: "auto" }}
           />
         </Link>
-        <BocchimeshiButton />
+        {/* <BocchimeshiButton /> */}
       </div>
       {process.env.NEXT_PUBLIC_SESSIONIZE_ID ? (
         <SessionizeSessions id={process.env.NEXT_PUBLIC_SESSIONIZE_ID!} />
